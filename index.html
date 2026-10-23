@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DETROIT // CLICK PROTOCOL</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap');
+:root{--cyan:#69e9ff;--blue:#168dff;--ink:#050b12;--panel:rgba(8,19,31,.83);--line:rgba(105,233,255,.22);--muted:#7e9eae;--white:#e8f8ff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 75% 15%,#10283a 0,transparent 38%),radial-gradient(ellipse at 12% 80%,#071c2b 0,transparent 35%),#03070c;color:var(--white);font-family:'Rajdhani',sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:linear-gradient(rgba(105,233,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(105,233,255,.025) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 95%)}
+.scanlines{position:fixed;inset:0;pointer-events:none;z-index:10;opacity:.12;background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(0,0,0,.4) 4px 5px)}
+header,.wrap,footer{position:relative;z-index:1}header{height:78px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,5vw,70px);backdrop-filter:blur(14px);background:rgba(2,8,14,.7)}
+.brand{display:flex;align-items:center;gap:13px;font-family:Orbitron,sans-serif;letter-spacing:.12em;font-size:13px}.brandmark{width:31px;height:31px;border:2px solid var(--cyan);border-radius:50%;display:grid;place-items:center;box-shadow:0 0 18px #168dff55;position:relative}.brandmark:after{content:"";width:5px;height:5px;background:var(--cyan);border-radius:50%;box-shadow:0 0 12px var(--cyan)}
+.status{display:flex;align-items:center;gap:9px;color:#9bb4c3;font-size:12px;letter-spacing:.14em;text-transform:uppercase}.dot{width:7px;height:7px;border-radius:50%;background:#57ffb1;box-shadow:0 0 12px #57ffb1;animation:pulse 1.8s infinite}
+.wrap{max-width:1160px;margin:auto;padding:35px 22px 65px}.eyebrow{font-family:Orbitron,sans-serif;color:var(--cyan);font-size:10px;letter-spacing:.26em;text-transform:uppercase}.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:stretch}.panel{border:1px solid var(--line);background:linear-gradient(135deg,rgba(11,28,43,.91),rgba(4,10,17,.91));backdrop-filter:blur(12px);position:relative;overflow:hidden;box-shadow:0 15px 55px #0006}.panel:before{content:"";position:absolute;top:0;left:0;width:65px;height:2px;background:var(--cyan);box-shadow:0 0 16px var(--cyan)}.intro{padding:34px 34px 27px;min-height:260px}.intro h1{font-family:Orbitron,sans-serif;font-size:clamp(25px,4vw,43px);line-height:1.17;letter-spacing:-.04em;margin:19px 0 14px;font-weight:600}.intro h1 span{color:var(--cyan);text-shadow:0 0 24px #168dff66}.intro p{color:#91aab9;max-width:450px;line-height:1.55;font-size:17px;margin:0}.intro-foot{display:flex;gap:24px;margin-top:27px;color:#608496;font-size:11px;letter-spacing:.14em}
+.auth{padding:28px;min-height:260px}.auth-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.auth-head h2{font-family:Orbitron,sans-serif;font-size:15px;letter-spacing:.08em;margin:0}.auth-tabs{display:flex;border-bottom:1px solid var(--line);margin-bottom:18px}.auth-tabs button{background:none;border:0;color:#6c8797;padding:11px 15px 10px;font:600 14px Rajdhani;cursor:pointer;border-bottom:2px solid transparent}.auth-tabs button.active{color:var(--cyan);border-color:var(--cyan)}
+label{display:block;font-size:12px;color:#89a7b8;letter-spacing:.12em;margin:13px 0 6px;text-transform:uppercase}input{width:100%;padding:12px 13px;background:#02080e;border:1px solid #1b3a4b;color:#e7faff;font:600 16px Rajdhani;outline:none;transition:.2s}input:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #69e9ff13}.primary,.ghost{cursor:pointer;font-family:Orbitron,sans-serif;letter-spacing:.1em;text-transform:uppercase;font-size:10px;padding:14px 16px;transition:.2s}.primary{width:100%;margin-top:17px;color:#001018;border:1px solid var(--cyan);background:var(--cyan);box-shadow:0 0 22px #168dff24}.primary:hover{background:#c7f8ff;box-shadow:0 0 26px #69e9ff5c;transform:translateY(-1px)}.ghost{background:transparent;border:1px solid var(--line);color:var(--cyan)}.ghost:hover{border-color:var(--cyan);background:#69e9ff0b}.message{font-size:13px;min-height:18px;color:#ff9b9b;margin-top:10px}.logged{display:none}.userline{display:flex;align-items:center;gap:12px}.avatar{width:40px;height:40px;border:1px solid var(--cyan);border-radius:50%;display:grid;place-items:center;color:var(--cyan);font-family:Orbitron}.userline strong{font-family:Orbitron;font-size:13px;display:block}.userline small{color:#78a0b3;letter-spacing:.1em}.logout{margin-left:auto}
+.dashboard{display:grid;grid-template-columns:1.25fr .75fr;gap:26px;margin-top:26px}.clicker{padding:26px;min-height:430px;text-align:center}.sectiontop{display:flex;align-items:center;justify-content:space-between;text-align:left}.sectiontop h2,.leader h2{font:600 14px Orbitron;letter-spacing:.1em;margin:0}.tiny{font-size:10px;color:#5e8498;letter-spacing:.15em}.counter{margin:28px 0 0;font:600 clamp(40px,7vw,67px) Orbitron;letter-spacing:-.05em;text-shadow:0 0 24px #168dff42}.counter-label{font-size:11px;color:#7295a8;letter-spacing:.25em;margin-top:5px}.plate-zone{height:220px;display:grid;place-items:center;position:relative}.ring{position:absolute;width:210px;height:210px;border:1px solid #2d88a655;border-radius:50%;animation:rotate 22s linear infinite}.ring:before,.ring:after{content:"";position:absolute;inset:13px;border:1px dashed #3cbce555;border-radius:50%}.ring:after{inset:-8px;border-color:#69e9ff1c;border-style:solid}.plate{width:155px;height:155px;border-radius:50%;border:1px solid #b2f4ff;background:radial-gradient(circle at 36% 27%,#fff 0,#b9eaf3 5%,#477d92 10%,#102e40 30%,#07131e 58%,#03080e 70%);box-shadow:inset 0 0 0 8px #6dd8ed18,inset 0 0 0 12px #a9f3ff32,0 0 0 5px #69e9ff09,0 0 45px #168dff35;cursor:pointer;position:relative;transition:transform .12s,filter .2s;display:grid;place-items:center;user-select:none}.plate:before{content:"";position:absolute;inset:20px;border:1px solid #a9f3ff4d;border-radius:50%}.plate:after{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:#9af4ff;box-shadow:0 0 15px #69e9ff}.plate:hover{filter:brightness(1.2);box-shadow:inset 0 0 0 8px #6dd8ed18,inset 0 0 0 12px #a9f3ff32,0 0 60px #168dff65}.plate:active,.plate.hit{transform:scale(.93);filter:brightness(1.5)}.plate svg{width:60px;opacity:.55}.click-hint{font-size:11px;letter-spacing:.2em;color:#77a4b7;margin-top:1px}.click-hint b{color:var(--cyan);font-weight:600}.click-bottom{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line);padding-top:16px;margin-top:18px;text-align:left;color:#68899a;font-size:12px}.click-bottom strong{color:#d9f8ff;font-weight:600}.float{position:absolute;color:var(--cyan);font:700 20px Orbitron;pointer-events:none;animation:floatup .7s ease-out forwards;text-shadow:0 0 15px var(--cyan)}
+.side{display:flex;flex-direction:column;gap:26px}.leader{padding:25px;min-height:300px}.leader-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.leader-title .eyebrow{font-size:9px}.leader-list{display:flex;flex-direction:column;gap:8px}.rankrow{display:grid;grid-template-columns:32px 1fr auto;align-items:center;gap:10px;padding:11px 10px;background:#0a1722;border:1px solid #122b3b;animation:fadein .35s both}.ranknum{font:600 13px Orbitron;color:#6b98ab}.rankrow:nth-child(1) .ranknum{color:#fff2a0}.rankrow:nth-child(2) .ranknum{color:#d7e4eb}.rankrow:nth-child(3) .ranknum{color:#d5a47b}.rankname{font-weight:700;font-size:16px;overflow:hidden;text-overflow:ellipsis}.rankname small{display:block;font-size:10px;color:#6b8da0;font-weight:500;letter-spacing:.1em}.rankscore{font:600 12px Orbitron;color:var(--cyan)}.empty{padding:22px 10px;color:#69899a;text-align:center;font-size:14px;border:1px dashed #214153}.feed{padding:22px 25px}.feed h3{font:600 12px Orbitron;letter-spacing:.1em;margin:0 0 14px}.feedline{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #122634;color:#7796a7;font-size:13px}.feedline:last-child{border:0}.feedline b{color:#c9edf7;font-weight:600}
+.notice{margin-top:26px;padding:17px 20px;border-left:2px solid var(--cyan);background:#07131c;color:#7797a8;font-size:13px;line-height:1.5}.notice strong{color:#b8f4ff}footer{border-top:1px solid var(--line);padding:20px;text-align:center;color:#426678;font-size:10px;letter-spacing:.2em}
+@keyframes pulse{50%{opacity:.35;box-shadow:0 0 3px #57ffb1}}@keyframes rotate{to{transform:rotate(360deg)}}@keyframes floatup{to{transform:translateY(-80px) scale(1.25);opacity:0}}@keyframes fadein{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}@keyframes sweep{0%{transform:translateX(-110%)}100%{transform:translateX(110%)}}
+@media(max-width:800px){.hero,.dashboard{grid-template-columns:1fr}.intro{min-height:auto}.clicker{min-height:410px}.status{font-size:9px}.wrap{padding-top:22px}}@media(max-width:440px){header{padding:0 15px}.brand{font-size:10px}.intro,.auth,.clicker,.leader{padding:21px}.intro h1{font-size:27px}.intro-foot{gap:12px;font-size:9px}.plate{width:140px;height:140px}.ring{width:190px;height:190px}}
+</style>
+</head>
+<body>
+<div class="scanlines"></div>
+<header>
+  <div class="brand"><div class="brandmark"></div><div>DETROIT <span style="color:var(--cyan)">//</span> CLICK PROTOCOL</div></div>
+  <div class="status"><span class="dot"></span> SYSTEM ONLINE <span style="color:#34566a">/</span> v.2038.04</div>
+</header>
+<main class="wrap">
+  <section class="hero">
+    <div class="panel intro">
+      <div class="eyebrow">CyberLife interface · public network</div>
+      <h1>YOUR FINGER.<br><span>YOUR PROTOCOL.</span></h1>
+      <p>Один клик — один импульс. Подключайся к сети, набирай очки и занимай своё место в таблице андроидов.</p>
+      <div class="intro-foot"><span>● NEURAL LINK ACTIVE</span><span>◇ NO UPGRADES</span><span>⌁ JUST CLICK</span></div>
+    </div>
+    <div class="panel auth">
+      <div id="authView">
+        <div class="auth-head"><h2>IDENTITY CHECK</h2><span class="eyebrow">01 / AUTH</span></div>
+        <div class="auth-tabs"><button id="tabLogin" class="active" type="button">ВХОД</button><button id="tabRegister" type="button">РЕГИСТРАЦИЯ</button></div>
+        <form id="authForm">
+          <label for="username">Имя пользователя</label><input id="username" autocomplete="username" minlength="3" maxlength="18" placeholder="например, Connor_87" required>
+          <div id="passwordWrap"><label for="password">Пароль</label><input id="password" type="password" autocomplete="current-password" minlength="4" placeholder="••••••••" required></div>
+          <button class="primary" id="authSubmit" type="submit">Войти в систему ↗</button>
+          <div class="message" id="authMessage" role="status"></div>
+        </form>
+      </div>
+      <div id="loggedView" class="logged">
+        <div class="auth-head"><h2>IDENTITY VERIFIED</h2><span class="eyebrow">02 / ONLINE</span></div>
+        <div class="userline"><div class="avatar" id="userAvatar">A</div><div><strong id="welcomeName">ANDROID</strong><small>REGISTERED ACCOUNT · ACTIVE</small></div><button class="ghost logout" id="logoutBtn" type="button">Выйти</button></div>
+        <div style="margin-top:28px;border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;align-items:center"><div><div class="eyebrow">YOUR TOTAL</div><div id="accountTotal" style="font:600 24px Orbitron;margin-top:7px">0</div></div><div style="text-align:right"><div class="eyebrow">RANK</div><div id="accountRank" style="font:600 20px Orbitron;color:var(--cyan);margin-top:7px">—</div></div></div>
+        <div class="message" id="accountMessage" style="color:#72e9ff">Доступ к таблице лидеров открыт.</div>
+      </div>
+    </div>
+  </section>
+  <section class="dashboard">
+    <div class="panel clicker">
+      <div class="sectiontop"><h2>◈ IMPULSE GENERATOR</h2><span class="tiny">MODULE 01</span></div>
+      <div class="counter" id="count">000000</div><div class="counter-label">TOTAL NEURAL IMPULSES</div>
+      <div class="plate-zone" id="plateZone">
+        <div class="ring"></div>
+        <button class="plate" id="plate" aria-label="Сделать клик" title="Клик!">
+          <svg viewBox="0 0 64 64" fill="none" stroke="#9af4ff" stroke-width="1.2"><path d="M32 7 52 19v26L32 57 12 45V19z"/><path d="M32 16 44 23v18L32 48 20 41V23z"/><path d="M32 7v9m0 32v9M12 19l8 4m24 18 8 4M52 19l-8 4m-24 18-8 4"/></svg>
+        </button>
+      </div>
+      <div class="click-hint" id="clickHint">[ <b>CLICK THE PLATE</b> ] TO TRANSMIT</div>
+      <div class="click-bottom"><span>SESSION STATUS<br><strong id="sessionStatus">GUEST MODE</strong></span><span style="text-align:right">POWER SOURCE<br><strong>HUMAN HAND</strong></span></div>
+    </div>
+    <div class="side">
+      <div class="panel leader">
+        <div class="leader-title"><h2>◈ TOP ANDROIDS</h2><span class="eyebrow">GLOBAL RANK</span></div>
+        <div class="leader-list" id="leaderList"><div class="empty">Войди или зарегистрируйся,<br>чтобы увидеть таблицу лидеров.</div></div>
+        <div class="tiny" style="margin-top:15px">SORTED BY TOTAL IMPULSES ↓</div>
+      </div>
+      <div class="panel feed">
+        <h3>◈ SYSTEM TELEMETRY</h3>
+        <div class="feedline"><span>Network</span><b style="color:#57ffb1">STABLE</b></div>
+        <div class="feedline"><span>Registered units</span><b id="registeredCount">0</b></div>
+        <div class="feedline"><span>Leaderboard sync</span><b>LOCAL NODE</b></div>
+        <div class="feedline"><span>Upgrade modules</span><b>DISABLED</b></div>
+      </div>
+    </div>
+  </section>
+  <div class="notice"><strong>ВАЖНО / DEMO BUILD:</strong> общий топ хранится в Supabase. Начисление кликов выполняется функцией базы данных с серверным ограничением частоты. Не публикуй секретный/service_role ключ.</div>
+</main>
+<footer>CYBERLIFE NETWORK © 2038 — ALL SYSTEMS NOMINAL</footer>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+// 1) Replace these two values with your Supabase project URL and publishable/anon key.
+const SUPABASE_URL = 'PASTE_YOUR_SUPABASE_PROJECT_URL_HERE';
+const SUPABASE_KEY = 'PASTE_YOUR_SUPABASE_PUBLISHABLE_KEY_HERE';
+const configured = !SUPABASE_URL.includes('PASTE_') && !SUPABASE_KEY.includes('PASTE_');
+const supabase = configured ? createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+let mode = 'login';
+let current = null;
+let total = 0;
+let busy = false;
+const $ = id => document.getElementById(id);
+
+function cleanName(s) { return s.trim().replace(/\s+/g, ' '); }
+function emailForUsername(name) {
+  // Supabase Auth requires email or phone. This app maps usernames to a synthetic,
+  // non-deliverable address. Email confirmation must be disabled in Supabase.
+  return `${name.toLowerCase()}@detroit-clicker.invalid`;
+}
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function fmt(n) { return Math.max(0, Number(n) || 0).toLocaleString('ru-RU').padStart(6, '0'); }
+function setMessage(id, text, ok=false) {
+  const el = $(id); el.textContent = text; el.style.color = ok ? '#72e9ff' : '#ff9b9b';
+}
+function setMode(next) {
+  mode = next;
+  $('tabLogin').classList.toggle('active', mode === 'login');
+  $('tabRegister').classList.toggle('active', mode === 'register');
+  $('authSubmit').textContent = mode === 'login' ? 'Войти в систему ↗' : 'Создать аккаунт ↗';
+  $('password').autocomplete = mode === 'login' ? 'current-password' : 'new-password';
+  $('password').placeholder = mode === 'login' ? '••••••••' : 'Минимум 8 символов';
+  setMessage('authMessage', '');
+}
+$('tabLogin').onclick = () => setMode('login');
+$('tabRegister').onclick = () => setMode('register');
+
+function showLogged() {
+  $('authView').style.display = 'none';
+  $('loggedView').style.display = 'block';
+  $('welcomeName').textContent = current.toUpperCase();
+  $('userAvatar').textContent = current.slice(0,1).toUpperCase();
+  $('sessionStatus').textContent = 'AUTHENTICATED';
+  $('clickHint').innerHTML = '[ <b>CLICK THE PLATE</b> ] TO TRANSMIT';
+  setMessage('accountMessage', 'Доступ к общей таблице лидеров открыт.', true);
+  updateCount();
+}
+function updateCount() {
+  $('count').textContent = fmt(total);
+  if (current) $('accountTotal').textContent = Number(total).toLocaleString('ru-RU');
+}
+function logout() {
+  if (supabase) supabase.auth.signOut();
+  current = null; total = 0;
+  $('authView').style.display = 'block';
+  $('loggedView').style.display = 'none';
+  $('sessionStatus').textContent = 'GUEST MODE';
+  $('leaderList').innerHTML = '<div class="empty">Войди или зарегистрируйся,<br>чтобы увидеть таблицу лидеров.</div>';
+  updateCount();
+}
+$('logoutBtn').onclick = logout;
+
+async function refreshLeaderboard() {
+  if (!supabase || !current) {
+    $('leaderList').innerHTML = '<div class="empty">Войди или зарегистрируйся,<br>чтобы увидеть таблицу лидеров.</div>';
+    $('registeredCount').textContent = '—';
+    return;
+  }
+  const { data, error } = await supabase.from('profiles')
+    .select('username, clicks').order('clicks', {ascending:false}).order('username', {ascending:true}).limit(10);
+  if (error) {
+    $('leaderList').innerHTML = '<div class="empty">Не удалось загрузить топ. Проверь SQL-настройки.</div>';
+    console.error(error); return;
+  }
+  $('registeredCount').textContent = 'ONLINE';
+  if (!data.length) {
+    $('leaderList').innerHTML = '<div class="empty">Пока нет участников.</div>'; return;
+  }
+  $('leaderList').innerHTML = data.map((u, i) =>
+    `<div class="rankrow" style="animation-delay:${i*45}ms"><div class="ranknum">#${String(i+1).padStart(2,'0')}</div><div class="rankname">${escapeHTML(u.username)}<small>${u.username.toLowerCase()===current.toLowerCase()?'YOU · REGISTERED UNIT':'REGISTERED UNIT'}</small></div><div class="rankscore">${Number(u.clicks).toLocaleString('ru-RU')}</div></div>`
+  ).join('');
+  const myRank = data.findIndex(u => u.username.toLowerCase() === current.toLowerCase());
+  // If not in the top 10, retrieve rank through a small ordered query.
+  if (myRank >= 0) $('accountRank').textContent = '#' + (myRank + 1);
+  else {
+    const {data: all} = await supabase.from('profiles').select('username,clicks').order('clicks',{ascending:false}).order('username',{ascending:true}).limit(1000);
+    const idx = (all || []).findIndex(u => u.username.toLowerCase() === current.toLowerCase());
+    $('accountRank').textContent = idx >= 0 ? '#' + (idx + 1) : '—';
+  }
+}
+async function loadProfile() {
+  if (!supabase || !current) return;
+  const { data, error } = await supabase.from('profiles').select('username, clicks').eq('id', (await supabase.auth.getUser()).data.user.id).single();
+  if (error) { console.error(error); setMessage('accountMessage', 'Профиль не найден. Проверь SQL-триггер.'); return; }
+  current = data.username; total = Number(data.clicks) || 0;
+  showLogged(); await refreshLeaderboard();
+}
+$('authForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!configured) {
+    setMessage('authMessage', 'Сначала вставь URL и publishable key Supabase в начале файла.');
+    return;
+  }
+  const name = cleanName($('username').value);
+  const pass = $('password').value;
+  if (!/^[A-Za-z0-9_-]{3,18}$/.test(name)) {
+    setMessage('authMessage', 'Имя: 3–18 символов, буквы, цифры, _ или дефис.'); return;
+  }
+  if (pass.length < 8) { setMessage('authMessage', 'Используй пароль минимум из 8 символов.'); return; }
+  $('authSubmit').disabled = true;
+  $('authSubmit').textContent = 'ПОДКЛЮЧЕНИЕ...';
+  setMessage('authMessage', '');
+  try {
+    if (mode === 'register') {
+      const {data, error} = await supabase.auth.signUp({
+        email: emailForUsername(name), password: pass,
+        options: {data: {username: name}}
+      });
+      if (error) throw error;
+      if (!data.session) {
+        setMessage('authMessage', 'Supabase ждёт подтверждение email. Отключи Confirm email в Auth → Providers → Email и повтори регистрацию.');
+        return;
+      }
+    } else {
+      const {error} = await supabase.auth.signInWithPassword({email: emailForUsername(name), password: pass});
+      if (error) throw error;
+    }
+    const {data: userData} = await supabase.auth.getUser();
+    current = userData.user?.user_metadata?.username || name;
+    await loadProfile();
+  } catch (err) {
+    console.error(err);
+    setMessage('authMessage', err.message || 'Не удалось войти. Проверь настройки Supabase.');
+  } finally {
+    $('authSubmit').disabled = false;
+    $('authSubmit').textContent = mode === 'login' ? 'Войти в систему ↗' : 'Создать аккаунт ↗';
+  }
+});
+
+$('plate').addEventListener('click', async e => {
+  if (!current || !supabase) {
+    $('clickHint').innerHTML = 'СНАЧАЛА <b>ВОЙДИ ИЛИ ЗАРЕГИСТРИРУЙСЯ</b>';
+    setMessage('authMessage', 'Для сохранения кликов нужен аккаунт.');
+    $('authView').scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
+  if (busy) return;
+  busy = true;
+  try {
+    // The database function increments exactly one click and enforces server-side cooldown.
+    const {data, error} = await supabase.rpc('click_once');
+    if (error) {
+      if (error.message?.includes('CLICK_COOLDOWN')) {
+        setMessage('accountMessage', 'Не так быстро, андроид. Дай системе долю секунды.', true);
+      } else throw error;
+    } else {
+      total = Number(data);
+      updateCount();
+      const plate = $('plate'); plate.classList.remove('hit'); void plate.offsetWidth; plate.classList.add('hit');
+      const r = plate.getBoundingClientRect(), zone = $('plateZone').getBoundingClientRect();
+      const f = document.createElement('span'); f.className = 'float'; f.textContent = '+1';
+      f.style.left = (r.left-zone.left+r.width/2-12)+'px'; f.style.top = (r.top-zone.top+25)+'px';
+      $('plateZone').appendChild(f); setTimeout(()=>f.remove(),750);
+      refreshLeaderboard();
+    }
+  } catch (err) {
+    console.error(err); setMessage('accountMessage', 'Ошибка сохранения клика. Попробуй ещё раз.');
+  } finally { setTimeout(()=>{busy=false}, 90); }
+});
+
+// Start with no local fake accounts. Session, profile, clicks and leaderboard come from Supabase.
+(async () => {
+  updateCount();
+  if (!configured) {
+    setMessage('authMessage', 'Настрой Supabase: вставь URL и publishable key в начале HTML-файла.');
+    return;
+  }
+  const {data} = await supabase.auth.getSession();
+  if (data.session) {
+    const {data:userData} = await supabase.auth.getUser();
+    current = userData.user?.user_metadata?.username || '';
+    if (current) await loadProfile();
+  }
+  await refreshLeaderboard();
+})();
+</script>
+</body>
+</html>
